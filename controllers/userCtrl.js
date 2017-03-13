@@ -23,20 +23,13 @@ var users = [
 
 module.exports = {
   login: function (req, res, next) {
-    // users.forEach(function(element){
-    //
-    // });
     for (var i = 0; i < users.length; i++){
-      // console.log({ename: element.name, epass: element.password, rname: req.body.name, rpass: req.body.password});
       if (users[i].name === req.body.name && users[i].password === req.body.password) {
         req.session.currentUser = users[i];
-        console.log(req.session);
         res.send({ userFound: true });
+        return;
       }
     }
-    if (!req.session.currentUser) {
-      console.log(req.session);
-      res.send({ userFound: false });
-    }
+    res.send({ userFound: false });
   }
 };

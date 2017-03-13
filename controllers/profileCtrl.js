@@ -20,3 +20,21 @@ var profiles = [
     status: 'OMG MITTENS DID THE CUTEST THING TODAY'
   }
 ];
+module.exports = {
+  getFriendsProfiles: function (req, res, next){
+    var friends = req.session.currentUser.friends;
+    var friendsArr = [];
+    for (var i = 0; i < friends.length; i++){
+      for (var j = 0; j < profiles.length; j++){
+        if (profiles[j].name === friends[i]){
+          friendsArr.push(profiles[j]);
+        }
+      }
+    }
+    res.send({
+      currentUser: req.session.currentUser,
+      friends: friendsArr
+    });
+  }
+
+};

@@ -11,11 +11,13 @@ var corsOptions = {
   origin: 'http://localhost:8877'
 };
 
+app.use(express.static(__dirname + '/public'));
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(session({ secret: config.sessionSecret }));
 
 app.post('/api/login', userCtrl.login);
+app.get('/api/profiles', profileCtrl.getFriendsProfiles);
 
 app.listen(port, () =>{
   console.log(`listening on port ${port}`);
